@@ -1,0 +1,28 @@
+<!-- Embedded audio player (without autoplay) -->
+    <audio id="audioPlayer" controls>
+        <source src="https://www.kozco.com/tech/LRMonoPhase4.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        let playCount = 0;
+        const maxPlays = 1; // Set the number of times to play the audio
+
+        audioPlayer.addEventListener('play', function() {
+            if (playCount >= maxPlays) {
+                audioPlayer.pause();  // Pause immediately if it has reached the max play limit
+                audioPlayer.currentTime = 0;  // Reset the audio to the beginning
+            }
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+            playCount++;
+            if (playCount < maxPlays) {
+                audioPlayer.play();  // Replay the audio if the play count is less than the max
+            } else {
+                // Disable the play button after max plays
+                audioPlayer.controls = false;
+            }
+        });
+    </script>
